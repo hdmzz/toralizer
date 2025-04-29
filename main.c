@@ -35,6 +35,7 @@ int main(int ac, char **av)
     Res                 *res;
     struct sockaddr_in  sock;
     char                buff[ressize];
+    char                tmp[512];
     int                 port;
     int                 success;
     int                 s;
@@ -89,6 +90,28 @@ int main(int ac, char **av)
     };
 
     printf("Success connected to the proxy to %s:%d\n", host, port);
+    
+    memset(tmp, 0, 512);
+
+    snprintf(tmp, 512,
+        "TEST / HTTP/1.0\r\n"
+        "Host: www.hugodam.cloud\r\n"
+        "\r\n"
+    );
+
+    //on a ecrit un header maintenant il faut ecrire dans le file descriptor puis remettre a zero le buffer tmp et 
+
+    write(s, tmp, 511);
+
+    memset(tmp, 0, 512);
+
+    if (read(s, tmp, 511) < 0)
+    {
+        perror("Error read return of response from the serveur");
+        return (free(req), close(s), -1);
+    };
+
+    printf("Retour de requete: %s\n", tmp);
     
     free(req);
     close(s);
