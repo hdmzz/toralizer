@@ -1,0 +1,11 @@
+Ce projet utilise Tor comme proxy local pour redirige les requetes reseaux par le reseaux Tor
+il faut donc installer Tor localement
+le port 9050 est le port spécifique au service Tor
+
+sudo apt update
+sudo apt install tor
+sudo service tor start
+ou pour Tor installer sur machine hote
+
+cat /etc/resolv.conf | grep nameserver ==> addresse de l'hôte
+ puis changer la macro PROXY avec la bonne adresse
