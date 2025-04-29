@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <errno.h>
+#include <dlfcn.h>
 
 #define PROXY "127.0.0.1"
 #define PROXYPORT 9050 //le port 9050 ne fonctionnera pas sur toutes les machines mais le 80 (HTTP) oui
@@ -56,3 +57,6 @@ struct proxy_response
 };
 
 typedef struct proxy_response Res;
+
+Req *request(struct sockaddr_in *);
+int connect(int, const struct sockaddr *, socklen_t);
